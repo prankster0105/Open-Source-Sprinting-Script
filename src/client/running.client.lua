@@ -6,10 +6,12 @@ local humanoid = character:WaitForChild("Humanoid");
 
 local run, uis, ts = game:GetService("RunService"), game:GetService("UserInputService"), game:GetService("TweenService");
 
--- this is where animations go, but honestly, i haven't made them yet, so yeah
+
 
 local sliding = character:WaitForChild("sliding");
 local running = character:WaitForChild("running");
+
+-- this is where animations go, but honestly, i haven't made them yet, so yeah
 
 local runAnim;
 
