@@ -16,18 +16,19 @@ local slidAnim;
 
 --
 
-local function stop()
-    -- we will use this soon
-end
+local weight = 857 --your fat
 
-local function start(inp, gpe)
-    -- we will use this soon as well
-end
+uis.InputBegan:Connect(function(inp, gpe)
+    -- wall of requirements
+    if gpe then return; end;
+    if not running.Value then return; end;
+    if sliding then return; end; -- we wouldn't want the player to slide while sliding while sliding while sliding while sliding, would we?
 
-run.RenderStepped:Connect(function()
-    uis.InputBegan:Connect(start);
+    if inp.KeyCode == Enum.KeyCode.LeftControl then
+        humanoid.AutoRotate = false;
+        humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, false);
 
-    uis.InputEnded:Connect(function(inp, gpe)
-        -- we will also use this soon
-    end)
+        sliding.Value = not sliding.Value and true;
+        humanoid.WalkSpeed -= weight;
+    end
 end)
