@@ -14,6 +14,43 @@ local running = character:WaitForChild("running");
 local runAnim;
 
 --
+
+-- this new edit is (probably) more optimised than the one we had last commit
+
+--keep in mind i haven't tested any of these yet
+
+humanoid.Running:Connect(function(speed)
+    if speed > 0 then -- we are moving
+        if not (uis:IsKeyDown(Enum.KeyCode.LeftShift)) then return; end;
+        if not running.Value then running.Value = true; end;
+
+        ts:Create(humanoid, TweenInfo.new(.8), { WalkSpeed = 23 });
+
+
+        if runAnim.IsPlaying then return; end
+        runAnim:Play(.3, .5, .3);
+
+        coroutine.wrap(function()
+            for t = .3, .5, 1 do
+                runAnim:AdjustSpeed(t);
+                wait(.29);
+            end
+        end)()
+
+        runAnim.Looped = not runAnim.Looped and true;
+    else
+        -- do stuff like reverse the effects
+
+        ts:Create(humanoid, TweenInfo.new(.57), { WalkSpeed = 16 });
+
+        if runAnim.IsPlaying then runAnim:Stop(.6); end;
+        running.Value = running.Value and false;
+    end
+end)
+
+
+--old version (not very optimised)
+--[[
 local function stop()
     if not runAnim.IsPlaying then return; end;
 
@@ -52,4 +89,4 @@ run.RenderStepped:Connect(function(dt)
             stop();
         end
     end)
-end)
+end)]]
